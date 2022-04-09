@@ -10,10 +10,12 @@ install:
 	sudo apt install gcc -y
 	git clone https://github.com/holbertonschool/Betty betty
 	sudo sh ./betty/install.sh
+	chmod u+x ./scripts/betty
+	sudo mv ./scripts/betty /bin/
 
 linter:
-	/bin/betty *.c
-	/bin/betty *.h
+	betty *.c
+	betty *.h
 
 tests:
 	$(info Running the tests)
