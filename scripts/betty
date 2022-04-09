@@ -7,6 +7,7 @@
 BIN_PATH="betty"
 BETTY_STYLE="betty-style.pl"
 BETTY_DOC="betty-doc.pl"
+STATUS_CODE="0"
 
 if [ "$#" = "0" ]; then
     echo "No arguments passed."
@@ -16,5 +17,15 @@ fi
 for argument in "$@" ; do
     echo -e "\n========== $argument =========="
     ${BIN_PATH}/${BETTY_STYLE} "$argument"
+    CODE=$?
+    if (($CODE != 0)); then
+        STATUS_CODE=$CODE
+    fi
     ${BIN_PATH}/${BETTY_DOC} "$argument"
+    CODE=$?
+    if (($CODE != 0)); then
+        STATUS_CODE=$CODE
+    fi
 done
+
+exit $STATUS_CODE
