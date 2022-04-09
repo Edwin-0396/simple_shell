@@ -4,9 +4,9 @@
 # Originally by Tim Britton (@wintermanc3r), multiargument added by
 # Larry Madeo (@hillmonkey)
 
-BIN_PATH="/usr/local/bin"
-BETTY_STYLE="betty-style"
-BETTY_DOC="betty-doc"
+BIN_PATH="betty"
+BETTY_STYLE="betty-style.pl"
+BETTY_DOC="betty-doc.pl"
 
 if [ "$#" = "0" ]; then
     echo "No arguments passed."
