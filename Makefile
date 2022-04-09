@@ -1,7 +1,7 @@
 #!bin/bash
 
 GCC := gcc -Wall -Werror -Wextra -pedantic -std=gnu89
-BETTY := ./betty/betty.sh
+BETTY := ./scripts/betty
 
 #
 # Makefile
@@ -11,10 +11,11 @@ install:
 	sudo apt install gcc -y
 	git clone https://github.com/holbertonschool/Betty betty
 	sudo sh ./betty/install.sh
+	chmod u+x ./scripts/betty
 
 linter:
-	$(BETTY) *.c
-	$(BETTY) *.h
+	@$(BETTY) *.c
+	@$(BETTY) *.h
 
 tests:
 	$(info Running the tests)
