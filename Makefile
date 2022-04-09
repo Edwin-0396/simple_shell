@@ -12,8 +12,8 @@ install:
 	sudo sh ./betty/install.sh
 
 linter:
-	betty *.c
-	betty *.h
+	/bin/betty *.c
+	/bin/betty *.h
 
 tests:
 	$(info Running the tests)
