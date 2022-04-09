@@ -9,7 +9,7 @@ GCC := gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 install:
 	sudo apt install gcc -y
 	git clone https://github.com/holbertonschool/Betty betty
-	./betty/install.sh
+	sudo sh ./betty/install.sh
 
 linter:
 	betty *.c
