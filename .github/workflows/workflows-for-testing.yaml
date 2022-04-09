@@ -18,6 +18,9 @@ jobs:
     - name: Installing depedencies
       run: make install
 
+    - name: Run linter (Betty)
+      run: make linter
+
     - name: Run test's suite
       run: make tests
 
