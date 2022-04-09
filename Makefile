@@ -1,7 +1,7 @@
 #!bin/bash
 
 GCC := gcc -Wall -Werror -Wextra -pedantic -std=gnu89
-BETTY := sh ./betty/betty.sh
+BETTY := ./betty/betty.sh
 
 #
 # Makefile
