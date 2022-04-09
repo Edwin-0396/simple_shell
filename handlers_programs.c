@@ -1,3 +1,1 @@
-/*
-* All functions for the main
-*/
+#include "simple_shell.h"

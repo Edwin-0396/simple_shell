@@ -1,5 +1,1 @@
-/**
- *All the utility functions (help)
- * 
- */
-
+#include "simple_shell.h"
