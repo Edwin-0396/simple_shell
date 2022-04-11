@@ -14,6 +14,15 @@
  * gcc prompt.c -o prompt && ./prompt
  */
 
+/**
+ * sample handler that replace a SIGINT default call
+ */
+void new_handler(int num __attribute__((unused)))
+{
+	printf("Nice try haha!\n");
+}
+
+
 int main(int argc, char *argv[])
 {
 	char *line = NULL;
@@ -24,7 +33,7 @@ int main(int argc, char *argv[])
 
 	char *error = NULL;
 
-	write(STDOUT_FILENO, shell_alias, strlen(shell_alias));
+	
 
 	/**
 	 * Each iteration of the while loop
@@ -40,17 +49,27 @@ int main(int argc, char *argv[])
 	 * return different of that
 	 */
 	
-	/* non-interactive*/
+	/* non-interactive
 	if(argc > 0)
 	{
 		get_func(*argv);
 
 
 
+	}*/
+
+	if (signal(SIGINT, new_handler) == SIG_ERR)
+	{
+		printf("error asigning to signal a new handler\n");
+		exit(1);
 	}
 
+
 	/*interactive*/
-	while ((nread = getline(&line, &len, stdin)) != -1 && argc != 0)
+	if(argc == 1)
+		write(STDOUT_FILENO, shell_alias, strlen(shell_alias));
+
+	while ((nread = getline(&line, &len, stdin)) != -1 && argc == 1)
 	{
 		if (strcmp(line, "exit\n") == 0)
 		{
