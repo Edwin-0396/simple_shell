@@ -20,7 +20,9 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t nread;
 
-	char *shell_alias = "($) >";
+	char *shell_alias = "$ ";
+
+	char *error = NULL;
 
 	write(STDOUT_FILENO, shell_alias, strlen(shell_alias));
 
@@ -37,17 +39,32 @@ int main(int argc, char *argv[])
 	 * failed return -1, otherwise
 	 * return different of that
 	 */
+	
+	/* non-interactive*/
+	if(argc > 0)
+	{
+		get_func(*argv);
 
-	while ((nread = getline(&line, &len, stdin)) != -1)
+
+
+	}
+
+	/*interactive*/
+	while ((nread = getline(&line, &len, stdin)) != -1 && argc != 0)
 	{
 		if (strcmp(line, "exit\n") == 0)
 		{
 			free(line);
 			exit(0);
 		}
+		
+		/*
+			all the structure for built-ins
+		*/
 
-		printf("\nLine length: %zu\n", nread);
-		printf("Line content: %s\n", line);
+		/* if built-in not found print error: */	
+		error = "shs: line_number: current_command_not_found: not found\n";
+		write(STDOUT_FILENO, error, strlen(error));
 
 		write(STDOUT_FILENO, shell_alias, strlen(shell_alias));
 	}
