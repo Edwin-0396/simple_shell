@@ -3,7 +3,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <sys/wait.h>
+#include <sys/wait.h> // wait a child proccess
 #include <time.h>
 
 int main(void)
@@ -15,6 +15,8 @@ int main(void)
 	 * > 0: parent proccess id
 	 */
 	pid_t child = fork();
+	pid_t child1 = fork();
+	pid_t child2 = fork();
 	pid_t app = getpid();
 
 	printf("PID of my app %i\n", app);
@@ -28,7 +30,31 @@ int main(void)
 
 		printf("Child is doing something\n");
 
-		char *arg_list[] = {"/usr/bin/sleep", "4", NULL};
+		char *arg_list[] = {"/usr/bin/sleep", "10", NULL};
+		execvp("/usr/bin/sleep", arg_list);
+	}
+
+	if (child1 == 0)
+	{
+		/**
+		 * I'm child
+		 */
+
+		printf("Child 1 is doing something\n");
+
+		char *arg_list[] = {"/usr/bin/sleep", "10", NULL};
+		execvp("/usr/bin/sleep", arg_list);
+	}
+
+	if (child2 == 0)
+	{
+		/**
+		 * I'm child
+		 */
+
+		printf("Child 2 is doing something\n");
+
+		char *arg_list[] = {"/usr/bin/sleep", "10", NULL};
 		execvp("/usr/bin/sleep", arg_list);
 	}
 
@@ -36,6 +62,7 @@ int main(void)
 	 * Im parent
 	 *
 	 */
+	printf("Parents is wating the sons\n");
 	wait(&statusLock);
 
 	printf("%d\n", statusLock);

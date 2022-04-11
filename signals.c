@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include <unistd.h>
+#include <unistd.h> // proc id
 #include <sys/types.h>
 #include <string.h>
 #include <sys/wait.h>
@@ -52,6 +52,8 @@ int main(int argc, char const *argv[])
 
 	/**
 	 * Sends itself a SIGINT signal
+	 *
+	 * return a status code
 	 */
 	kill(current_pid, SIGINT);
 	printf("I am still alive!!\n");
