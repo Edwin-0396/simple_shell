@@ -29,7 +29,8 @@ int main(void)
 
 	/**
 	 * Im parent
-	 *
+	 * The printf in the line (34)
+	 * not be executed
 	 */
 	printf("I'm parent!\n");
 
