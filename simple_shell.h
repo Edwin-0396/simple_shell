@@ -3,5 +3,16 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <wait.h>
+#include <unistd.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <string.h>
+
+typedef struct CMD
+{
+	char *command;
+	char **args;
+} cmd_t;
 
 #endif
