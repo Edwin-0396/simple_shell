@@ -13,6 +13,7 @@ typedef struct CMD
 {
 	char *command;
 	char **args;
+	int n_args;
 } cmd_t;
 
 #endif
