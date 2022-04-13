@@ -1,6 +1,6 @@
 #include "simple_shell.h"
 
-void free_all(cmd_t *cmd, char *line)
+void free_all(cmd_t *cmd)
 {
 	int i = 0;
 	if (cmd)
@@ -21,26 +21,41 @@ void free_all(cmd_t *cmd, char *line)
 		free(cmd);
 		cmd = NULL;
 	}
-
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
 }
 
-int count_args_by_space(char *full_command)
+int count_args_by_space(char *input)
 {
 	int count = 0;
-	char *dup = strdup(full_command);
+	/**
+	 * Duplicate the "input" variable
+	 * for non modificated.
+	 *
+	 * Because the function strtok() modified
+	 * the variable that provide.
+	 *
+	 * And the end make a free for the
+	 * variable duplicated "dup"
+	 */
+
+	char *dup = strdup(input);
 	char *token = strtok(dup, " ");
 
 	while (token != NULL)
 		count++, token = strtok(NULL, " ");
 
 	/**
-	 * -1 because ignoring the command
+	 * Make a count of all input
+	 * included the command
+	 *
+	 * ["ls", "-l", "-a", "-b"] = 4
+	 *
+	 * And put -1 for ignoring the command
+	 * ["-l", "-a", "-b"] = 3
+	 *
+	 * (-1) because ignoring the command
 	 */
+
+	//  = condition ? case true : case false;
 	count = count > 0 ? (count - 1) : 0;
 	free(dup);
 
@@ -53,14 +68,14 @@ cmd_t *new_cmd(int n_args)
 	if (!cmd)
 		return NULL;
 
-	cmd->command = NULL;
 	cmd->n_args = n_args;
+	cmd->command = NULL;
 	cmd->args = NULL;
 
 	cmd->args = (char **)malloc(sizeof(char *) * n_args);
 	if (cmd->args == NULL)
 	{
-		free_all(cmd, NULL);
+		free_all(cmd);
 		return NULL;
 	}
 	return (cmd);
@@ -70,32 +85,41 @@ cmd_t *parse_cmd(char *input)
 {
 	int i = 0, args_count = 0;
 	cmd_t *cmd = NULL;
-	char *token = NULL,
-			 *full_command = NULL;
+	char *token = NULL;
 
-	full_command = strdup(input);
-
+	/**
+	 * Remove the "\n" of the end
+	 * from the variable - (line)
+	 *
+	 * Example:
+	 *  input - "hola\n" and should
+	 * 	be "hola"... Without the break line
+	 */
 	/** Remove the last character '\n' for '\0' */
-	full_command[strlen(full_command) - 1] = '\0';
+	if (input[strlen(input) - 1] == '\n')
+		input[strlen(input) - 1] = '\0';
 
-	// ["ls", "-l", "-a", "-b"]
-	args_count = count_args_by_space(full_command);
+	/**
+	 * Return the count of the args
+	 * each arg its separated by space
+	 *
+	 * Example:
+	 * - ["ls", "-l", "-a", "-b"]
+	 * Output: 3
+	 */
+	args_count = count_args_by_space(input);
 
 	cmd = new_cmd(args_count);
 	if (!cmd)
-	{
-		free(full_command);
 		return NULL;
-	}
 
 	if (cmd->n_args == 0)
 	{
-		cmd->command = strdup(full_command);
-		free(full_command);
+		cmd->command = strdup(input);
 		return (cmd);
 	}
 
-	token = strtok(full_command, " ");
+	token = strtok(input, " ");
 	while (token != NULL)
 	{
 		if (cmd->command == NULL)
@@ -107,7 +131,6 @@ cmd_t *parse_cmd(char *input)
 		token = strtok(NULL, " ");
 	}
 
-	free(full_command);
 	return (cmd);
 }
 
@@ -126,7 +149,7 @@ int main(int argc, char *argv[])
 	/* Variables */
 	size_t len = 0;
 	ssize_t nread;
-	char *line = NULL;
+	char *line;
 	int count = 0;
 
 	/**
@@ -140,6 +163,7 @@ int main(int argc, char *argv[])
 	while (true)
 	{
 		count++;
+		line = NULL;
 		/**
 		 * Print the prompt - "$ "
 		 * when failed return (-1)
@@ -161,24 +185,16 @@ int main(int argc, char *argv[])
 
 		/* Manipulate line(read buffer)*/
 		cmd_t *cmd = parse_cmd(line);
+		free(line);
 
 		if (strcmp(cmd->command, "exit") == 0)
 		{
-			free_all(cmd, line);
+			free_all(cmd);
 			exit(0);
 		}
 
 		// Func that free all mallocs
-		free_all(cmd, NULL);
-
-		/**
-		 * Remove the "\n" of the end
-		 * from the variable - (line)
-		 *
-		 * Example:
-		 *  input - "hola\n" and should
-		 * 	be "hola"... Without the break line
-		 */
+		free_all(cmd);
 	}
 
 	return (EXIT_SUCCESS);
