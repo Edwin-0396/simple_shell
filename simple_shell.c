@@ -263,8 +263,6 @@ int main(int argc, char *argv[], char **envs)
 			exit(0);
 		}
 
-		// Validate the buildin commands
-
 		if (strcmp(cmd->command, "cd") == 0)
 		{
 			printf("I'm cd command\n");
@@ -275,8 +273,7 @@ int main(int argc, char *argv[], char **envs)
 		// ----------------------------------- build-in-functions----------------------
 
 		// ----------------------------------- no-build-in-functions----------------------
-
-		printf("command: %s\n", cmd->command);
+		// Return "/bin/ls"
 		commandPath = get_non_builtin(cmd, envPath);
 		if (!commandPath)
 		{
@@ -284,8 +281,38 @@ int main(int argc, char *argv[], char **envs)
 			free_all(cmd);
 			continue;
 		}
+		pid_t childPid = fork();
+		int statusLock;
 
-		printf("The command is founded! -> %s\n", commandPath); // 3.0.0
+		if (childPid == 0)
+		{
+			// cmd->n_args; ([arg1, arg2, arg3]) = 3;
+			int totalCommand = cmd->n_args + 1;
+			
+			char **arg_list = malloc(sizeof(char *) * totalCommand);
+			
+			int i = 0;
+			while (i < totalCommand)
+			{
+				if (i == 0)
+					arg_list[i] = commandPath;
+				else
+					arg_list[i] = cmd->args[i - 1];
+				i++;
+			}
+
+			// [command, arg1, arg2, arg3] = 4
+
+			// arg_list = [command] || cmd->args = [arg1, arg2, arg3]
+			// [1] + [2] = [1, 2];
+			// [command, arg1, arg2, arg3]
+			// execv(..., arg_list)
+			execv(commandPath, arg_list);
+		}
+
+		wait(&statusLock);
+
+		// implement execv
 
 		// ----------------------------------- no-build-in-functions----------------------
 
