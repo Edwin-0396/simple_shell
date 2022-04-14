@@ -76,7 +76,7 @@ int count_args_by_space(char *input)
 	 */
 
 	//  = condition ? case true : case false;
-	count = count > 0 ? (count - 1) : 0;
+	count = count >= 1 ? (count - 1) : 0;
 	free(dup);
 
 	return (count);
@@ -154,8 +154,9 @@ cmd_t *parse_cmd(char *input)
 	return (cmd);
 }
 
-void new_signal_handler(int num __attribute__((unused)))
+void new_signal_handler(int pid __attribute__((unused)))
 {
+	// prompconte signo
 	if (write(STDOUT_FILENO, "\n$ ", 3) == EOF)
 		exit(EXIT_FAILURE);
 }
@@ -185,7 +186,6 @@ char *get_non_builtin(cmd_t *cmd, char *envPath)
 
 	if (!path)
 	{
-		printf("%s: command not found\n", cmd->command);
 		free(tempEnvPath);
 		return (NULL);
 	}
@@ -220,27 +220,32 @@ int main(int argc, char *argv[], char **envs)
 
 	while (true)
 	{
+		// if (NULL) == false
+		// if ("") == true
 		line = NULL;
 		commandPath = NULL;
 		count++;
-		/**
-		 * Print the prompt - "$ "
-		 * when failed return (-1)
-		 */
 
 		// TODO: What the f*** doing this!!!
 		if (isatty(STDIN_FILENO) == 1)
 		{
+			/**
+			 * Print the prompt - "$ "
+			 * when failed return (-1)
+			 */
 			if (write(STDOUT_FILENO, "$ ", 2) == EOF)
 				exit(EXIT_FAILURE);
 		}
 		// TODO: What the f*** doing this!!!
 
 		/* line the input provided by the user*/
+		// (len) what function doing this??
 		if ((nread = getline(&line, &len, stdin)) == EOF)
 		{
+			// TODO: What the f*** doing this!!! - Edwin
 			if (isatty(STDIN_FILENO) != 0)
 				write(STDOUT_FILENO, "\n", 1);
+			// TODO: What the f*** doing this!!! - Edwin
 			exit(EXIT_FAILURE);
 		}
 
@@ -273,24 +278,31 @@ int main(int argc, char *argv[], char **envs)
 		// ----------------------------------- build-in-functions----------------------
 
 		// ----------------------------------- no-build-in-functions----------------------
-		// Return "/bin/ls"
+
+		/**
+		 * Extract the command path
+		 *
+		 */
 		commandPath = get_non_builtin(cmd, envPath);
 		if (!commandPath)
 		{
+			printf("%s: command not found\n", cmd->command);
 			free(commandPath);
 			free_all(cmd);
 			continue;
 		}
+
 		pid_t childPid = fork();
 		int statusLock;
 
 		if (childPid == 0)
 		{
-			// cmd->n_args; ([arg1, arg2, arg3]) = 3;
+			// cmd->n_args;
+			// ([ arg1, arg2, arg3 ]) = 3;
 			int totalCommand = cmd->n_args + 1;
-			
+
 			char **arg_list = malloc(sizeof(char *) * totalCommand);
-			
+
 			int i = 0;
 			while (i < totalCommand)
 			{
