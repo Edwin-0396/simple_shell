@@ -23,6 +23,26 @@ void free_all(cmd_t *cmd)
 	}
 }
 
+char *concatenate(const char *a, const char *b, const char *c)
+{
+	int total_len;
+	a = a ? a : EMPTY_STR;
+	b = b ? b : EMPTY_STR;
+	c = c ? c : EMPTY_STR;
+
+	total_len = strlen(a) + strlen(b) + strlen(c);
+
+	if (total_len == 0)
+		return NULL;
+
+	char *dest = malloc(total_len + 1);
+	strcpy(dest, a);
+
+	dest = strcat(dest, b);
+	dest = strcat(dest, c);
+	return dest;
+}
+
 int count_args_by_space(char *input)
 {
 	int count = 0;
@@ -140,17 +160,55 @@ void new_signal_handler(int num __attribute__((unused)))
 		exit(EXIT_FAILURE);
 }
 
+char *get_non_builtin(cmd_t *cmd, char *envPath)
+{
+	char *path = NULL,
+			 *token = NULL,
+			 *tempEnvPath = NULL,
+			 *tempToken = NULL;
+	struct stat stats;
+
+	tempEnvPath = strdup(envPath);
+
+	token = strtok(tempEnvPath, ":");
+	while (token != NULL)
+	{
+		path = concatenate(token, "/", cmd->command);
+
+		if (stat(path, &stats) == 0)
+			break;
+
+		free(path);
+		path = NULL;
+		token = strtok(NULL, ":");
+	}
+
+	if (!path)
+	{
+		printf("%s: command not found\n", cmd->command);
+		free(tempEnvPath);
+		return (NULL);
+	}
+
+	free(tempEnvPath);
+	return (path);
+}
+
 /**
  * main - Shell program (entry point)
  * Return: Always 0 (Success)
  */
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char **envs)
 {
 	/* Variables */
 	size_t len = 0;
-	ssize_t nread;
-	char *line;
+	ssize_t nread = 0;
+	char *line = NULL;
 	int count = 0;
+	struct stat statistics;
+	char *commandPath = NULL, *envPath;
+
+	envPath = getenv("PATH");
 
 	/**
 	 * SIGINT = Interrupt the process
@@ -162,18 +220,21 @@ int main(int argc, char *argv[])
 
 	while (true)
 	{
-		count++;
 		line = NULL;
+		commandPath = NULL;
+		count++;
 		/**
 		 * Print the prompt - "$ "
 		 * when failed return (-1)
 		 */
 
+		// TODO: What the f*** doing this!!!
 		if (isatty(STDIN_FILENO) == 1)
 		{
 			if (write(STDOUT_FILENO, "$ ", 2) == EOF)
 				exit(EXIT_FAILURE);
 		}
+		// TODO: What the f*** doing this!!!
 
 		/* line the input provided by the user*/
 		if ((nread = getline(&line, &len, stdin)) == EOF)
@@ -183,17 +244,53 @@ int main(int argc, char *argv[])
 			exit(EXIT_FAILURE);
 		}
 
-		/* Manipulate line(read buffer)*/
+		/**
+		 * Parse - Proccess a string and
+		 * return in the format that I want
+		 *
+		 * In this case I want is a
+		 * struct of type "cmd_t"
+		 *
+		 * Manipulate line(read buffer)
+		 */
 		cmd_t *cmd = parse_cmd(line);
 		free(line);
 
+		// ----------------------------------- build-in-functions----------------------
 		if (strcmp(cmd->command, "exit") == 0)
 		{
 			free_all(cmd);
 			exit(0);
 		}
 
+		// Validate the buildin commands
+
+		if (strcmp(cmd->command, "cd") == 0)
+		{
+			printf("I'm cd command\n");
+			free_all(cmd);
+			continue;
+		}
+
+		// ----------------------------------- build-in-functions----------------------
+
+		// ----------------------------------- no-build-in-functions----------------------
+
+		printf("command: %s\n", cmd->command);
+		commandPath = get_non_builtin(cmd, envPath);
+		if (!commandPath)
+		{
+			free(commandPath);
+			free_all(cmd);
+			continue;
+		}
+
+		printf("The command is founded! -> %s\n", commandPath); // 3.0.0
+
+		// ----------------------------------- no-build-in-functions----------------------
+
 		// Func that free all mallocs
+		free(commandPath);
 		free_all(cmd);
 	}
 
