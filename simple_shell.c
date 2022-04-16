@@ -138,6 +138,9 @@ cmd_t *parse_cmd(char *input)
 		cmd->command = strdup(input);
 		return (cmd);
 	}
+	//Input: ls -l -a -b
+	//command = [ls] [-l] [-a] [-b]
+	
 
 	token = strtok(input, " ");
 	while (token != NULL)
@@ -207,7 +210,7 @@ int main(int argc, char *argv[], char **envs)
 	int count = 0;
 	struct stat statistics;
 	char *commandPath = NULL, *envPath;
-
+	
 	envPath = getenv("PATH");
 
 	/**
@@ -265,9 +268,20 @@ int main(int argc, char *argv[], char **envs)
 		if (strcmp(cmd->command, "exit") == 0)
 		{
 			free_all(cmd);
-			exit(0);
+			exit (EXIT_SUCCESS);
 		}
 
+		if (strcmp(cmd->command, "env") == 0)
+		{
+			while(*envs)
+			{
+				printf("%s\n", *envs);
+				envs++;
+			}
+			free_all(cmd);
+			continue;
+		}
+			
 		if (strcmp(cmd->command, "cd") == 0)
 		{
 			printf("I'm cd command\n");
