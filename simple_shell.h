@@ -20,7 +20,9 @@ typedef struct CMD
 	int n_args;
 } cmd_t;
 
-char *str_concat(char *s1, char *s2);
+char *_strconcat(char *s1, char *s2, char *s3);
 char *_strdup(char *str);
+int _strlen(const char *str);
+int _countby(char *str, char *delimeter);
 
 #endif

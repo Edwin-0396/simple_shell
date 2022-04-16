@@ -23,26 +23,6 @@ void free_all(cmd_t *cmd)
 	}
 }
 
-char *concatenate(const char *a, const char *b, const char *c)
-{
-	int total_len;
-	a = a ? a : EMPTY_STR;
-	b = b ? b : EMPTY_STR;
-	c = c ? c : EMPTY_STR;
-
-	total_len = strlen(a) + strlen(b) + strlen(c);
-
-	if (total_len == 0)
-		return NULL;
-
-	char *dest = malloc(total_len + 1);
-	strcpy(dest, a);
-
-	dest = strcat(dest, b);
-	dest = strcat(dest, c);
-	return dest;
-}
-
 int count_args_by_space(char *input)
 {
 	int count = 0;
@@ -57,7 +37,7 @@ int count_args_by_space(char *input)
 	 * variable duplicated "dup"
 	 */
 
-	char *dup = strdup(input);
+	char *dup = _strdup(input);
 	char *token = strtok(dup, " ");
 
 	while (token != NULL)
@@ -135,21 +115,20 @@ cmd_t *parse_cmd(char *input)
 
 	if (cmd->n_args == 0)
 	{
-		cmd->command = strdup(input);
+		cmd->command = _strdup(input);
 		return (cmd);
 	}
-	//Input: ls -l -a -b
-	//command = [ls] [-l] [-a] [-b]
-	
+	// Input: ls -l -a -b
+	// command = [ls] [-l] [-a] [-b]
 
 	token = strtok(input, " ");
 	while (token != NULL)
 	{
 		if (cmd->command == NULL)
-			cmd->command = strdup(token);
+			cmd->command = _strdup(token);
 
 		else
-			cmd->args[i] = strdup(token), i++;
+			cmd->args[i] = _strdup(token), i++;
 
 		token = strtok(NULL, " ");
 	}
@@ -164,7 +143,7 @@ void new_signal_handler(int pid __attribute__((unused)))
 		exit(EXIT_FAILURE);
 }
 
-char *get_non_builtin(cmd_t *cmd, char *envPath)
+char *get_path_from_command(cmd_t *cmd, char *envPath)
 {
 	char *path = NULL,
 			 *token = NULL,
@@ -172,12 +151,12 @@ char *get_non_builtin(cmd_t *cmd, char *envPath)
 			 *tempToken = NULL;
 	struct stat stats;
 
-	tempEnvPath = strdup(envPath);
+	tempEnvPath = _strdup(envPath);
 
 	token = strtok(tempEnvPath, ":");
 	while (token != NULL)
 	{
-		path = concatenate(token, "/", cmd->command);
+		path = _strconcat(token, "/", cmd->command);
 
 		if (stat(path, &stats) == 0)
 			break;
@@ -187,13 +166,10 @@ char *get_non_builtin(cmd_t *cmd, char *envPath)
 		token = strtok(NULL, ":");
 	}
 
-	if (!path)
-	{
-		free(tempEnvPath);
-		return (NULL);
-	}
-
 	free(tempEnvPath);
+
+	if (!path)
+		return (NULL);
 	return (path);
 }
 
@@ -210,7 +186,7 @@ int main(int argc, char *argv[], char **envs)
 	int count = 0;
 	struct stat statistics;
 	char *commandPath = NULL, *envPath;
-	
+
 	envPath = getenv("PATH");
 
 	/**
@@ -263,17 +239,18 @@ int main(int argc, char *argv[], char **envs)
 		 */
 		cmd_t *cmd = parse_cmd(line);
 		free(line);
+		printf("command: |%s|\n", cmd->command);
 
 		// ----------------------------------- build-in-functions----------------------
 		if (strcmp(cmd->command, "exit") == 0)
 		{
 			free_all(cmd);
-			exit (EXIT_SUCCESS);
+			exit(EXIT_SUCCESS);
 		}
 
 		if (strcmp(cmd->command, "env") == 0)
 		{
-			while(*envs)
+			while (*envs)
 			{
 				printf("%s\n", *envs);
 				envs++;
@@ -281,7 +258,7 @@ int main(int argc, char *argv[], char **envs)
 			free_all(cmd);
 			continue;
 		}
-			
+
 		if (strcmp(cmd->command, "cd") == 0)
 		{
 			printf("I'm cd command\n");
@@ -297,7 +274,7 @@ int main(int argc, char *argv[], char **envs)
 		 * Extract the command path
 		 *
 		 */
-		commandPath = get_non_builtin(cmd, envPath);
+		commandPath = get_path_from_command(cmd, envPath);
 		if (!commandPath)
 		{
 			printf("%s: command not found\n", cmd->command);
