@@ -33,4 +33,9 @@ cmd_t *new_cmd(int n_args);
 int count_args_by_space(char *input);
 cmd_t *parse_cmd(char *input);
 
+bool execute_builtin(cmd_t *cmd, char **envs);
+int execute_non_builtin(cmd_t *cmd, char *commandPath);
+
+void _getline(char **line);
+
 #endif

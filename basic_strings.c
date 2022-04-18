@@ -6,6 +6,7 @@
 int _strlen(const char *str)
 {
 	int count = 0;
+
 	if (!str)
 		return (count);
 
@@ -74,4 +75,3 @@ char *_strdup(char *str)
 
 	return (dup);
 }
-

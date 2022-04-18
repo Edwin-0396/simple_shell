@@ -3,6 +3,7 @@
 void free_all(cmd_t *cmd)
 {
 	int i = 0;
+
 	if (cmd)
 	{
 		free(cmd->command);
@@ -23,10 +24,22 @@ void free_all(cmd_t *cmd)
 	}
 }
 
-
 void new_signal_handler(int pid __attribute__((unused)))
 {
-	// prompconte signo
 	if (write(STDOUT_FILENO, "\n$ ", 3) == EOF)
 		exit(EXIT_FAILURE);
+}
+
+void _getline(char **line)
+{
+	size_t len = 0;
+	ssize_t nread = 0;
+
+	nread = getline(line, &len, stdin);
+	if (nread == EOF)
+	{
+		if (isatty(STDIN_FILENO) != 0)
+			write(STDOUT_FILENO, "\n", 1);
+		exit(EXIT_FAILURE);
+	}
 }
