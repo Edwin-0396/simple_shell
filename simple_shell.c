@@ -5,11 +5,10 @@
  * Return: Always 0 (Success)
  */
 
-int main(int argc, char *argv[], char **envs)
+int main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)), char **envs)
 {
 	char *line = NULL, *commandPath = NULL, *envPath;
 	int count = 0;
-	struct stat statistics;
 	cmd_t *cmd;
 
 	envPath = getenv("PATH");

@@ -3,9 +3,8 @@
 char *get_path_from_command(cmd_t *cmd, char *envPath)
 {
 	char *path = NULL,
-		 *token = NULL,
-		 *tempEnvPath = NULL,
-		 *tempToken = NULL;
+			 *token = NULL,
+			 *tempEnvPath = NULL;
 	struct stat stats;
 
 	tempEnvPath = _strdup(envPath);
