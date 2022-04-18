@@ -25,4 +25,12 @@ char *_strdup(char *str);
 int _strlen(const char *str);
 int _countby(char *str, char *delimeter);
 
+void free_all(cmd_t *cmd);
+void new_signal_handler(int pid __attribute__((unused)));
+
+char *get_path_from_command(cmd_t *cmd, char *envPath);
+cmd_t *new_cmd(int n_args);
+int count_args_by_space(char *input);
+cmd_t *parse_cmd(char *input);
+
 #endif
