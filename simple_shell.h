@@ -37,5 +37,6 @@ bool execute_builtin(cmd_t *cmd, char **envs);
 int execute_non_builtin(cmd_t *cmd, char *commandPath);
 
 void _getline(char **line);
+bool find_char(cmd_t *cmd);
 
 #endif

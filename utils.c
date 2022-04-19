@@ -43,3 +43,36 @@ void _getline(char **line)
 		exit(EXIT_FAILURE);
 	}
 }
+
+void remove_spaces(cmd_t *cmd)
+{
+	int i = 0, j = 0;
+
+	while (cmd->command[i])
+	{
+		if (cmd->command[i] != ' ')
+			cmd->command[j++] = cmd->command[i];
+		i++;
+	}
+	cmd->command[j] = '\0';
+}
+
+bool find_char(cmd_t *cmd)
+{
+	int index = 0;
+	bool flag = false;
+	char cmp = '/';
+
+	remove_spaces(cmd);
+
+	while (cmd->command[index])
+	{
+		if (cmd->command[index] == cmp)
+		{
+			flag = true;
+			return (flag);
+		}
+		index++;
+	}
+	return (flag);
+}

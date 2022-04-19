@@ -6,7 +6,7 @@ BETTY := ./scripts/betty
 #
 # Makefile
 #
-
+ 
 valgrind:
 	gcc -g -O0 *.c -o hsh
 	valgrind --leak-check=full --track-origins=yes --tool=memcheck ./hsh

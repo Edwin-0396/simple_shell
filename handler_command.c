@@ -3,16 +3,22 @@
 char *get_path_from_command(cmd_t *cmd, char *envPath)
 {
 	char *path = NULL,
-			 *token = NULL,
-			 *tempEnvPath = NULL;
+		 *token = NULL,
+		 *tempEnvPath = NULL;
 	struct stat stats;
+	bool flag = false;
 
 	tempEnvPath = _strdup(envPath);
 
 	token = strtok(tempEnvPath, ":");
+	flag = find_char(cmd);
+	
 	while (token != NULL)
 	{
-		path = _strconcat(token, "/", cmd->command);
+		if (flag == true)
+			path = _strdup(cmd->command);
+		else
+			path = _strconcat(token, "/", cmd->command);
 
 		if (stat(path, &stats) == 0)
 			break;
