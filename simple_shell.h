@@ -44,6 +44,7 @@ int execute_non_builtin(cmd_t *cmd, char *commandPath);
 
 void _getline(char **line);
 bool find_char(cmd_t *cmd);
+void remove_spaces(cmd_t *cmd);
 
 /* String functions */
 int _strlen(const char *s);
