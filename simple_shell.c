@@ -36,7 +36,7 @@ int main(int argc __attribute__((unused)),
 		commandPath = get_path_from_command(cmd, envPath);
 		if (!commandPath)
 		{
-			printf("%s: command not found\n", cmd->command);
+			printf("%s: %d: %s: not found\n", argv[0], count, cmd->command);
 			free(commandPath), free_all(cmd);
 			continue;
 		}
