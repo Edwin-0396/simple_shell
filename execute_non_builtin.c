@@ -1,5 +1,12 @@
 #include "simple_shell.h"
 
+/**
+ * execute_non_builtin - function that executes a non-builtin command
+ * @cmd: input command
+ * @commandPath: path of the non_builtin
+ * Return: 0 on success
+ */
+
 int execute_non_builtin(cmd_t *cmd, char *commandPath)
 {
 	int statusLock;

@@ -2,10 +2,14 @@
 
 /**
  * main - Shell program (entry point)
+ * @argc: number of arguments
+ * @argv: array containing the arguments
+ * @envs: array of environment variables
  * Return: Always 0 (Success)
  */
 
-int main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)), char **envs)
+int main(int argc __attribute__((unused)),
+		 char *argv[] __attribute__((unused)), char **envs)
 {
 	char *line = NULL, *commandPath = NULL, *envPath;
 	int count = 0;

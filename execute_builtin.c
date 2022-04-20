@@ -1,5 +1,12 @@
 #include "simple_shell.h"
 
+/**
+ * execute_builtin - function that executes a builtin command
+ * @cmd: input command
+ * @envs: enviroment variables
+ * Return: builtin executed
+ */
+
 bool execute_builtin(cmd_t *cmd, char **envs)
 {
 	if (strcmp(cmd->command, "exit") == 0)

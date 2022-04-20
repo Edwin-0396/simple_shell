@@ -1,4 +1,10 @@
 #include "simple_shell.h"
+/**
+ * get_path_from_command - function that get the command path
+ * @cmd: struct for handling commands
+ * @envPath: path of the non_builtin
+ * Return: 0 on success
+ */
 
 char *get_path_from_command(cmd_t *cmd, char *envPath)
 {
@@ -12,7 +18,7 @@ char *get_path_from_command(cmd_t *cmd, char *envPath)
 
 	token = strtok(tempEnvPath, ":");
 	flag = find_char(cmd);
-	
+
 	while (token != NULL)
 	{
 		if (flag == true)
@@ -35,6 +41,11 @@ char *get_path_from_command(cmd_t *cmd, char *envPath)
 	return (path);
 }
 
+/**
+ * new_cmd - function that reserves space for a new command
+ * @n_args: number of arguments
+ * Return: struct
+ */
 cmd_t *new_cmd(int n_args)
 {
 	cmd_t *cmd = NULL;
@@ -56,6 +67,12 @@ cmd_t *new_cmd(int n_args)
 	return (cmd);
 }
 
+/**
+ * count_args_by_space - function that counts the number of arguments
+ * @input: input string
+ * Return: number of arguments
+ */
+
 int count_args_by_space(char *input)
 {
 	int count = 0;
@@ -70,6 +87,11 @@ int count_args_by_space(char *input)
 	return (count);
 }
 
+/**
+ * parse_cmd - function that processes an input string
+ * @input: input string
+ * Return: struct of arguments
+ */
 cmd_t *parse_cmd(char *input)
 {
 	int i = 0, args_count = 0;

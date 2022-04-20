@@ -1,7 +1,9 @@
 #include "simple_shell.h"
 
 /**
- * strlen - String len
+ * _strlen - get the length of the string
+ * @str: input string
+ * Return: length
  */
 int _strlen(const char *str)
 {
@@ -18,6 +20,10 @@ int _strlen(const char *str)
 
 /**
  * _strconcat - Concatenate 2 string into one
+ * @s1: first string to concatenate
+ * @s2: second string to concatenate
+ * @s3: third string to concatenate
+ * Return: string concatenated
  */
 char *_strconcat(char *s1, char *s2, char *s3)
 {
@@ -51,6 +57,11 @@ char *_strconcat(char *s1, char *s2, char *s3)
 	return (pstr);
 }
 
+/**
+ * _strdup - duplicate a string
+ * @str: input string
+ * Return: string duplicated
+ */
 char *_strdup(char *str)
 {
 	char *dup, *j;

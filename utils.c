@@ -1,5 +1,9 @@
 #include "simple_shell.h"
 
+/**
+ * free_all - function that frees all the content of struct
+ * @cmd: input struct
+ */
 void free_all(cmd_t *cmd)
 {
 	int i = 0;
@@ -24,12 +28,22 @@ void free_all(cmd_t *cmd)
 	}
 }
 
+/**
+ * new_signal_handler - funciton that ignores the signal
+ * to interrupt the process
+ *@pid: pid of the process
+ */
+
 void new_signal_handler(int pid __attribute__((unused)))
 {
 	if (write(STDOUT_FILENO, "\n$ ", 3) == EOF)
 		exit(EXIT_FAILURE);
 }
 
+/**
+ * _getline - funciton that get input line
+ *@line: input string
+ */
 void _getline(char **line)
 {
 	size_t len = 0;
@@ -44,6 +58,10 @@ void _getline(char **line)
 	}
 }
 
+/**
+ * remove_spaces - funciton that remove spaces from a string
+ *@cmd: input struct of cmd
+ */
 void remove_spaces(cmd_t *cmd)
 {
 	int i = 0, j = 0;
@@ -57,6 +75,11 @@ void remove_spaces(cmd_t *cmd)
 	cmd->command[j] = '\0';
 }
 
+/**
+ * find_char - function that find a character
+ *@cmd: input struct of cmd
+ *Return: bool true if found and false if not
+ */
 bool find_char(cmd_t *cmd)
 {
 	int index = 0;
