@@ -12,20 +12,20 @@ char *get_path_from_command(cmd_t *cmd, char *envPath)
 	struct stat stats;
 	bool flag = false;
 
-	if (!envPath || envPath[0] == '\0')
-	{
-		fprintf(
-				stderr,
-				"%s: line :%d: sh: No such file or directory\n",
-				__FILE__,
-				__LINE__);
-		exit(127);
-	}
-
 	tempEnvPath = _strdup(envPath);
 
 	token = strtok(tempEnvPath, ":");
 	flag = find_char(cmd);
+
+	if (flag == true)
+	{
+		path = _strdup(cmd->command);
+		if (stat(path, &stats) == 0)
+		{
+			free(tempEnvPath);
+			return (path);
+		}
+	}
 
 	while (token != NULL)
 	{
