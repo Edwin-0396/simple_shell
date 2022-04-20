@@ -13,6 +13,12 @@
 
 #define EMPTY_STR ""
 
+/**
+ * struct CMD - struct that homes all the elements to manage the input commands
+ * @command: pointer to store the command
+ * @args: double pointer to store the arguments
+ * @n_args: number of arguments
+ */
 typedef struct CMD
 {
 	char *command;
@@ -45,6 +51,5 @@ char *_strcpy(char *dest, const char *src);
 char *_strcat(char *dest, char *src);
 int _strcmp(const char *s1, const char *s2);
 char *_strdup(char *str);
-
 
 #endif
