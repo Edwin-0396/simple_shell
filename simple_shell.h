@@ -26,11 +26,6 @@ typedef struct CMD
 	int n_args;
 } cmd_t;
 
-char *_strconcat(char *s1, char *s2, char *s3);
-char *_strdup(char *str);
-int _strlen(const char *str);
-int _countby(char *str, char *delimeter);
-
 void free_all(cmd_t *cmd);
 void new_signal_handler(int pid __attribute__((unused)));
 
@@ -52,5 +47,6 @@ char *_strcpy(char *dest, const char *src);
 char *_strcat(char *dest, char *src);
 int _strcmp(const char *s1, const char *s2);
 char *_strdup(char *str);
+char *_strconcat(char *s1, char *s2, char *s3);
 
 #endif
