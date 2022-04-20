@@ -8,12 +8,7 @@ In this project we are tasked with creating our own simple UNIX command interpre
 
 Usage: **hsh**[filename]
 
-To invocate **hsh**, compile all
-~~~
-.c
-~~~
-
-files in the repository and run the resulting executable:
+To invocate **hsh**, compile all **.c** files in the repository and run the resulting executable:
 
 ~~~
 gcc *.c -o hsh
