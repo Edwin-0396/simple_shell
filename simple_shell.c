@@ -28,7 +28,7 @@ int main(int argc __attribute__((unused)),
 		}
 		_getline(&line);
 		if (_strlen(line) == 1)
-		{	
+		{
 			free(line);
 			continue;
 		}
