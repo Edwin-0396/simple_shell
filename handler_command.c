@@ -13,7 +13,6 @@ char *get_path_from_command(cmd_t *cmd, char *envPath)
 	bool flag = false;
 
 	tempEnvPath = _strdup(envPath);
-
 	token = strtok(tempEnvPath, ":");
 	flag = find_char(cmd);
 
@@ -118,6 +117,7 @@ cmd_t *parse_cmd(char *input)
 	if (cmd->n_args == 0)
 	{
 		cmd->command = _strdup(input);
+		find_char(cmd);
 		return (cmd);
 	}
 
@@ -133,5 +133,6 @@ cmd_t *parse_cmd(char *input)
 		token = strtok(NULL, " ");
 	}
 
+	find_char(cmd);
 	return (cmd);
 }

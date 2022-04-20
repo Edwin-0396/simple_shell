@@ -27,6 +27,11 @@ int main(int argc __attribute__((unused)),
 				exit(EXIT_FAILURE);
 		}
 		_getline(&line);
+		if (_strlen(line) == 1)
+		{	
+			free(line);
+			continue;
+		}
 		cmd = parse_cmd(line);
 		free(line);
 
