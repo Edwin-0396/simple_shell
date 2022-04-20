@@ -2,32 +2,44 @@
 
 GCC := gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 BETTY := ./scripts/betty
+OUTPUT := hsh
 
 #
 # Makefile
 #
- 
+
 valgrind:
-	gcc -g -O0 *.c -o hsh
-	valgrind --leak-check=full --track-origins=yes --tool=memcheck ./hsh
+	@echo "Compilling for valgrind..."
+	@gcc -g -O0 *.c -o hsh
+	@echo "Compiled!"
+	
+	@echo "Running valgrind..."
+	@valgrind --leak-check=full --track-origins=yes --tool=memcheck ./$(OUTPUT)
 
 install:
-	sudo apt install gcc -y
-	git clone https://github.com/holbertonschool/Betty betty
-	sudo sh ./betty/install.sh
-	chmod u+x ./scripts/betty
+	@echo "Installing gcc and valgrind..."
+	@sudo apt install gcc valgrind -y
+	@echo "gcc and valgrind installed!"
+
+	@echo "Cloning and installing Betty..."
+	@git clone https://github.com/holbertonschool/Betty betty
+	@sudo sh ./betty/install.sh
+	@chmod u+x ./scripts/betty
+	@echo "Betty installed!"
 
 linter:
+	@echo "Executing linter..."
 	@$(BETTY) *.c
 	@$(BETTY) *.h
+	@echo "Linter finished!"
 
 build:
-	$(info Building the project...)
-	$(GCC) *.c -o hsh
-	$(info Build proccess terminated!)
+	@echo "Building the project..."
+	@$(GCC) *.c -o hsh
+	@echo "Build proccess terminated!"
 
 clean:
-	$(info Cleaning residuals files...)
+	@echo "Cleaning residuals files..."
 	@rm *.o
-	@rm hsh
-	$(info Cleaning proccess terminated!)
+	@rm $(OUTPUT)
+	@echo "Cleaning proccess terminated!"
