@@ -10,12 +10,22 @@ Usage: **hsh**[filename]
 
 To invocate **hsh**, compile all~~~.c~~~ files in the repository and run the resulting executable:
 
-~~~gcc *.c -o hsh~~~
-~~~./hsh~~~
+~~~
+gcc *.c -o hsh
+~~~
+
+~~~
+./hsh
+~~~
 
 **hsh** can be onvoked both interactively an non-interactively. If **hsh** is invoked with standard input not connected to a terminal, it reads and executes received commands in order.
 
 Example:
 
-~~~$ echo "echo 'hello'"| ./hsh~~~
-~~~$~~~
+~~~
+$ echo "echo 'hello'"| ./hsh
+~~~
+
+~~~
+$
+~~~
