@@ -56,7 +56,7 @@ void _getline(char **line)
 			write(STDOUT_FILENO, "\n", 1);
 		if (*line)
 			free(*line);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 }
 
