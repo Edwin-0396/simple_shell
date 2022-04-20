@@ -54,6 +54,8 @@ void _getline(char **line)
 	{
 		if (isatty(STDIN_FILENO) != 0)
 			write(STDOUT_FILENO, "\n", 1);
+		if (*line)
+			free(*line);
 		exit(EXIT_FAILURE);
 	}
 }
