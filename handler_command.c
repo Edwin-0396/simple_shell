@@ -105,8 +105,8 @@ cmd_t *parse_cmd(char *input)
 	cmd_t *cmd = NULL;
 	char *token = NULL;
 
-	if (input[strlen(input) - 1] == '\n')
-		input[strlen(input) - 1] = '\0';
+	if (input[_strlen(input) - 1] == '\n')
+		input[_strlen(input) - 1] = '\0';
 
 	args_count = count_args_by_space(input);
 

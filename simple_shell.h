@@ -45,7 +45,7 @@ void remove_spaces(cmd_t *cmd);
 int _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 char *_strcat(char *dest, char *src);
-int _strcmp(const char *s1, const char *s2);
+int _strcmp(char *s1, char *s2);
 char *_strdup(char *str);
 char *_strconcat(char *s1, char *s2, char *s3);
 

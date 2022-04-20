@@ -21,9 +21,9 @@ int execute_non_builtin(cmd_t *cmd, char *commandPath)
 	while (i < totalCommand)
 	{
 		if (i == 0)
-			arg_list[i] = strdup(cmd->command);
+			arg_list[i] = _strdup(cmd->command);
 		else
-			arg_list[i] = strdup(cmd->args[i - 1]);
+			arg_list[i] = _strdup(cmd->args[i - 1]);
 		i++;
 	}
 	arg_list[i] = NULL;

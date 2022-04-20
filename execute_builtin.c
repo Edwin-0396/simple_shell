@@ -9,13 +9,13 @@
 
 bool execute_builtin(cmd_t *cmd, char **envs)
 {
-	if (strcmp(cmd->command, "exit") == 0)
+	if (_strcmp(cmd->command, "exit") == 0)
 	{
 		free_all(cmd);
 		exit(EXIT_SUCCESS);
 	}
 
-	if (strcmp(cmd->command, "env") == 0)
+	if (_strcmp(cmd->command, "env") == 0)
 	{
 		while (*envs)
 		{
@@ -26,7 +26,7 @@ bool execute_builtin(cmd_t *cmd, char **envs)
 		return (true);
 	}
 
-	if (strcmp(cmd->command, "cd") == 0)
+	if (_strcmp(cmd->command, "cd") == 0)
 	{
 		printf("I'm cd command\n");
 		free_all(cmd);
