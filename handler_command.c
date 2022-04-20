@@ -8,11 +8,19 @@
 
 char *get_path_from_command(cmd_t *cmd, char *envPath)
 {
-	char *path = NULL,
-		 *token = NULL,
-		 *tempEnvPath = NULL;
+	char *path = NULL, *token = NULL, *tempEnvPath = NULL;
 	struct stat stats;
 	bool flag = false;
+
+	if (!envPath || envPath[0] == '\0')
+	{
+		fprintf(
+				stderr,
+				"%s: line :%d: sh: No such file or directory\n",
+				__FILE__,
+				__LINE__);
+		exit(127);
+	}
 
 	tempEnvPath = _strdup(envPath);
 

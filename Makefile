@@ -21,9 +21,6 @@ linter:
 	@$(BETTY) *.c
 	@$(BETTY) *.h
 
-tests:
-	$(info Running the tests)
-
 build:
 	$(info Building the project...)
 	$(GCC) *.c -o hsh
