@@ -112,6 +112,4 @@ $ echo "echo $$" | ./hsh
 
 * Yoshua López
 
-*Alejandro Aragón
-
-*
+* Alejandro Aragón
