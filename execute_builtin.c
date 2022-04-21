@@ -35,7 +35,7 @@ bool execute_builtin(cmd_t *cmd, char **envs)
 	return (false);
 }
 
-void error_handler(cmd_t *cmd, char **argv)
+void Error_handler(cmd_t *cmd, char **argv)
 {
 	char *message = NULL, *commandPath = NULL;
 	int count = 0;

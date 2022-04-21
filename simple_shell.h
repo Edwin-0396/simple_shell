@@ -49,4 +49,6 @@ int _strcmp(char *s1, char *s2);
 char *_strdup(char *str);
 char *_strconcat(char *s1, char *s2, char *s3);
 
+void Error_handler(cmd_t *cmd, char **argv);
+
 #endif

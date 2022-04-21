@@ -9,7 +9,7 @@
  */
 
 int main(int argc __attribute__((unused)),
-		 char *argv[] __attribute__((unused)), char **envs)
+		 char *argv[], char **envs)
 {
 	char *line = NULL, *commandPath = NULL, *envPath;
 	int count = 0;
@@ -41,10 +41,9 @@ int main(int argc __attribute__((unused)),
 		commandPath = get_path_from_command(cmd, envPath);
 		if (!commandPath)
 		{
-
-			error_handler(cmd);
+			Error_handler(cmd, argv);
 			continue;
-				}
+		}
 		execute_non_builtin(cmd, commandPath);
 		free(commandPath), free_all(cmd);
 	}
