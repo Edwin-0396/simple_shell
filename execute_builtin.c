@@ -34,3 +34,17 @@ bool execute_builtin(cmd_t *cmd, char **envs)
 	}
 	return (false);
 }
+
+void error_handler(cmd_t *cmd, char **argv)
+{
+	char *message = NULL, *commandPath = NULL;
+	int count = 0;
+
+	message = malloc(sizeof(char) * 100);
+	sprintf(message, "%s: %d: %s: not found\n", argv[0], count, cmd->command);
+	write(STDERR_FILENO, message, _strlen(message));
+
+	free(commandPath), free_all(cmd), free(message);
+	if (isatty(STDIN_FILENO) != 1)
+		exit(127);
+}
