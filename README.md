@@ -29,7 +29,7 @@ If **hsh** is invoked with standard input connected to a terminal (determined by
 
 ### Flowchart
 
-[Flowchart](https://ibb.co/ZmK9cb9)
+<a href="https://ibb.co/ZmK9cb9"><img src="https://i.ibb.co/jRGt3jt/flowchart.jpg" alt="flowchart" border="0"></a><br /><a target='_blank' href='https://es.imgbb.com/'>portal gif</a><br />
 
 
 ### Enviroment :evergreen_tree:
