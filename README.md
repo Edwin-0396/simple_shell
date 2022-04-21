@@ -29,8 +29,9 @@ If **hsh** is invoked with standard input connected to a terminal (determined by
 
 ### Flowchart
 
-<a href="https://ibb.co/ZmK9cb9"><img src="https://i.ibb.co/jRGt3jt/flowchart.jpg" alt="flowchart" border="0"></a>
+This flowchart shows the elaboration process after a whiteboarding session to understand how the simple shell will work.
 
+<a href="https://ibb.co/ZmK9cb9"><img src="https://i.ibb.co/jRGt3jt/flowchart.jpg" alt="flowchart" border="0"></a>
 
 ### Enviroment :evergreen_tree:
 
@@ -45,7 +46,6 @@ The home directory of the current user and the default directory argument for th
 $ echo "echo $HOME" | ./hsh
 /home/edwin
 ~~~
-
 
 **PWD**
 The current working directory as set by the cd command.
@@ -80,7 +80,6 @@ After receiving a command, **hsh** tokenizes it into words using ** " "**  as a 
 **ENV_VARIABLE** is substituted with its value.
 
 Example:
-
 ~~~
 $ echo "echo $PWD" | ./hsh 
 /home/edwin/simple_shell
@@ -91,7 +90,6 @@ $ echo "echo $PWD" | ./hsh
 **?** is substitued with the return value of the last program executed.
 
 Example:
-
 ~~~
 $ echo "echo $?" | ./hsh
 0
@@ -102,7 +100,6 @@ $ echo "echo $?" | ./hsh
 In this case the second $ is substitued with the current process ID.
 
 Example:
-
 ~~~
 $ echo "echo $$" | ./hsh
 6210
@@ -118,7 +115,6 @@ $ echo "echo $$" | ./hsh
 * If no argument is given, the command is interpreted as exit 0.
 
 Example:
-
 ~~~
 $ ./hsh
 $ exit
@@ -130,7 +126,6 @@ $ exit
 * Prints the current environment.
 
 Example:
-
 ~~~
 $ ./hsh
 $ env
@@ -149,6 +144,6 @@ LANG=C.UTF-8...
 
 ### Authors :crayon:
 
-* Edwin Gavíria -  <4639@holbertonschool.com>
-* Yoshua López -  <4623@holbertonschool.com>
-* Alejandro Aragón -  <4748@holbertonschool.com>
+* Edwin Gavíria - <<4639@holbertonschool.com>>
+* Yoshua López - <<4623@holbertonschool.com>>
+* Alejandro Aragón - <<4748@holbertonschool.com>>
