@@ -27,6 +27,11 @@ $
 
 If **hsh** is invoked with standard input connected to a terminal (determined by **isatty(3)**), an interactive shell is opened. When executing interactively, **hsh** display de prompt **$** when it is ready to read a command.
 
+### Flowchart
+
+![Flowchart](/home/alejo/Descargas/Whiteboard.png)
+
+
 ### Enviroment :evergreen_tree:
 
 Upon invocation, **hsh** receives and copies the environment of the parent process in which it was executed.
@@ -104,12 +109,8 @@ $ echo "echo $$" | ./hsh
 ~~~
 
 
-
-
 ### Authors :crayon:
 
-* Edwin Gavíria
-
-* Yoshua López
-
-* Alejandro Aragón
+* Edwin Gavíria <4639@holbertonschool.com>
+* Yoshua López <4623@holbertonschool.com>
+* Alejandro Aragón <4748@holbertonschool.com>
