@@ -9,9 +9,9 @@
  */
 
 int main(int argc __attribute__((unused)),
-		 char *argv[] __attribute__((unused)), char **envs)
+				 char *argv[] __attribute__((unused)), char **envs)
 {
-	char *line = NULL, *commandPath = NULL, *envPath;
+	char *line = NULL, *commandPath = NULL, *envPath, *message;
 	int count = 0;
 	cmd_t *cmd;
 
@@ -41,8 +41,14 @@ int main(int argc __attribute__((unused)),
 		commandPath = get_path_from_command(cmd, envPath);
 		if (!commandPath)
 		{
-			printf("%s: %d: %s: not found\n", argv[0], count, cmd->command);
-			free(commandPath), free_all(cmd);
+
+			message = malloc(sizeof(char) * 100);
+			sprintf(message, "%s: %d: %s: not found\n", argv[0], count, cmd->command);
+			write(STDERR_FILENO, message, _strlen(message));
+
+			free(commandPath), free_all(cmd), free(message);
+			if (isatty(STDIN_FILENO) != 1)
+				exit(127);
 			continue;
 		}
 		execute_non_builtin(cmd, commandPath);
