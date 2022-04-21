@@ -29,7 +29,7 @@ If **hsh** is invoked with standard input connected to a terminal (determined by
 
 ### Flowchart
 
-![Flowchart](/home/alejo/Descargas/Whiteboard.png)
+![Flowchart](/home/alejo/Descargas/flowchart.jpg)
 
 
 ### Enviroment :evergreen_tree:
