@@ -109,5 +109,7 @@ $ echo "echo $$" | ./hsh
 ### Authors :crayon:
 
 * Edwin Gavíria
+
 * Yoshua López
+
 *Alejandro Aragón
