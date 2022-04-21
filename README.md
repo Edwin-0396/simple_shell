@@ -105,12 +105,50 @@ Example:
 
 ~~~
 $ echo "echo $$" | ./hsh
-
+6210
 ~~~
 
+### hsh Bultin Commands :wrench:
+
+#### **exit**
+
+* Usage: exit [STATUS]
+* Exits the shell.
+* The STATUS argument is the integer used to exit the shell.
+* If no argument is given, the command is interpreted as exit 0.
+
+Example:
+
+~~~
+$ ./hsh
+$ exit
+~~~
+
+#### **env**
+
+* Usage: env
+* Prints the current environment.
+
+Example:
+
+~~~
+$ ./hsh
+$ env
+SHELL=/bin/bash
+COLORTERM=truecolor
+TERM_PROGRAM_VERSION=1.66.2
+WSL_DISTRO_NAME=Ubuntu-20.04
+NAME=Code
+PWD=/home/edwin/simple_shell
+LOGNAME=edwin
+VSCODE_GIT_ASKPASS_NODE=/home/edwin/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/node
+MOTD_SHOWN=update-motd
+HOME=/home/edwin
+LANG=C.UTF-8...
+~~~
 
 ### Authors :crayon:
 
-* Edwin Gavíria <4639@holbertonschool.com>
-* Yoshua López <4623@holbertonschool.com>
-* Alejandro Aragón <4748@holbertonschool.com>
+* Edwin Gavíria -  <4639@holbertonschool.com>
+* Yoshua López -  <4623@holbertonschool.com>
+* Alejandro Aragón -  <4748@holbertonschool.com>
