@@ -11,7 +11,7 @@ Usage: **hsh**[filename]
 To invocate **hsh**, compile all **.c** files in the repository and run the resulting executable:
 
 ~~~
-gcc *.c -o hsh
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ./hsh
 ~~~
 
@@ -57,3 +57,57 @@ A colon-separated list of directories in which the shell looks for commands. A n
 $ echo "echo $PATH" | ./hsh
 /home/edwin/.vscode-server/bin/dfd34e8260c70da74b5c2d86d61aee4b6d56977/bin/remote-cli:/usr/local/sbin:/usr/local/bin...
 ~~~
+
+### Command Excution :printer:
+
+After receiving a command, **hsh** tokenizes it into words using ** " "**  as a delimiter. The first word is considered the command and all remaining words are considered arguments to that command. **hsh** then proceeds with the following actions:
+
+* If the first character of the command is neither a slash (\) nor dot (.), the shell searches for it in the list of shell builtins. If there exists a builtin by that name, the builtin is invoked.
+* If the first character of the command is none of a slash (\), dot (.), nor builtin, **hsh** searches each element of the **PATH** environmental variable for a directory containing an executable file by that name.
+* If the first character of the command is a slash (\) or dot (.) or either of the above searches was successful, the shell executes the named program with any remaining given arguments in a separate execution environment.
+
+### Variable Replacement :pushpin:
+
+**hsh** interprets the $ character for variable replacement.
+
+### $ENV_VARIABLE
+
+**ENV_VARIABLE** is substituted with its value.
+
+Example:
+
+~~~
+$ echo "echo $PWD" | ./hsh 
+/home/edwin/simple_shell
+~~~
+
+### $?
+
+**?** is substitued with the return value of the last program executed.
+
+Example:
+
+~~~
+$ echo "echo $?" | ./hsh
+0
+~~~
+
+### $$
+
+In this case the second $ is substitued with the current process ID.
+
+Example:
+
+~~~
+$ echo "echo $$" | ./hsh
+
+~~~
+
+
+
+
+### Authors :crayon:
+
+* Edwin Gavíria
+* Yoshua López
+*Alejandro Aragón
