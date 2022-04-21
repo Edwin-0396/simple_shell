@@ -1,4 +1,4 @@
-.TH hsh 1 "April 19, 2022" "hsh(1)" "hsh-General Commands Manual"
+.TH hsh 1 "April 19, 2022" "hsh(1)" "hsh - General Commands Manual"
 
 .SH NAME
 
@@ -23,20 +23,18 @@ simple_shell is a command line interpreter, or shell, in the tradition of the fi
 Reading from either the terminal or files, simple_shell interprets and executes commands.
 
 
-.SH INVOCATION
+.B Invocation
+.in +2n
+\fBhsh\fR can be invoked both interactively and non-interactively.
+If \fBhsh\fR is invoked with standard input not connected to a terminal, it reads and executes received commands in order.
 
-Compile simple_shell with the GNU Compiler Collection, preferably using gcc plus the below specified flags, as per this example (note the use of the * wildcard which enables all related .c files to be compiled concurrently):
-.P
-.RS
-.B $ gcc -g -O0 *.c -o hsh && valgrind --leak-check=full --track-origins=yes --tool=memcheck ./hsh
-.P
-.RE
-simple_shell can be run in interactive mode by entering the below command on the command line followd by "enter." Note that the prompt ('$') will appear and you will then be in interactive mode and able to enter commands followed by "enter." 
-.P
-.RS
-.B $ ./hsh
-.P
-.RE
+If \fBhsh\fR is invoked with standard input connected to a terminal (determined by \fIisatty(3)\fR), an \fIinteractive\fR shell is opened.
+When executing interactively, \fBhsh\fR displays the prompt \fI$ \fR when it is ready to read a command.
+
+Alternatively, if command line arguments are supplied upon invocation, \fBhsh\fR treats the first argument as a file from which to read commands.
+The supplied file should contain one command per line.
+.B hsh\fR runs each of the commands contained in the file in order before exiting.
+.in
 
 .SH BUILTINS
 
