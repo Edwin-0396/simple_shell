@@ -81,7 +81,7 @@ After receiving a command, **hsh** tokenizes it into words using ** " "**  as a 
 
 Example:
 ~~~
-$ echo "echo $PWD" | ./hsh 
+$ echo "echo $PWD" | ./hsh
 /home/edwin/simple_shell
 ~~~
 

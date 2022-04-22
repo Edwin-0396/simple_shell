@@ -35,6 +35,11 @@ bool execute_builtin(cmd_t *cmd, char **envs)
 	return (false);
 }
 
+/**
+ * Error_handler - function that handles errors
+ * @cmd: input command
+ * @argv: arguments from the terminal
+ */
 void Error_handler(cmd_t *cmd, char **argv)
 {
 	char *message = NULL, *commandPath = NULL;
